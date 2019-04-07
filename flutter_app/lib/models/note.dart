@@ -18,7 +18,7 @@ class Note {
 
   String get description => _description;
 
-  int get prioritiy => _priority;
+  int get priority => _priority;
 
   String get date => _date;
 

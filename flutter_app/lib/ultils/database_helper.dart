@@ -59,7 +59,7 @@ class DatabaseHelper {
   }
 
   //Insert operation: Insert a note to the database
-  Future<int> insetNote(Note note) async {
+  Future<int> insertNote(Note note) async {
     Database db = await this.database;
     var result =  await db.insert(noteTable, note.toMap());
     return result;
@@ -87,4 +87,20 @@ class DatabaseHelper {
     int result = Sqflite.firstIntValue(x);
     return result;
   }
+
+  //get map list and convert to note list
+  Future<List<Note>> getNoteList() async {
+
+    var noteMapList = await getNoteMapList(); //Gets list of maps from database
+    int count = noteMapList.length; // Count the number of map entries in the db tables
+
+    List<Note> noteList = List<Note>();
+    //Loop over Map list and convert to notes.
+    for (int i =0; i < count; i++){
+      noteList.add(Note.fromMapObject(noteMapList[i]));
+    }
+
+    return noteList;
+  }
+
 }
